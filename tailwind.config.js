@@ -10,6 +10,9 @@ module.exports = {
         instrumentSerif: ['"Instrument Serif"', 'serif'],
         dancingScript: ['"Dancing Script"', 'cursive'],
       },
+      colors:{
+        cream:'#fcf0d6'
+      }
     },
   },
   plugins: [],
