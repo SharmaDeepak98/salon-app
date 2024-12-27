@@ -1,5 +1,7 @@
 /* styles.css or index.css */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Instrument+Serif&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
 
 @tailwind base;
 @tailwind components;
