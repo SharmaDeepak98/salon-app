@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
 import { NavItem, navItems } from "../constants/index";
 import logo from "../assets/images/Logo.png";
+import Button from "./Button";
 
-const BookNowButton = () => {
-  return (
-    <button className="hover:text-black hover:bg-gradient-to-bl hover:border-white bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md text-white">
-      Book Now !!
-    </button>
-  );
-};
+
 
 const Navbar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -74,7 +69,7 @@ const Navbar = () => {
 
           {/* Button */}
           <div className="hidden lg:flex justify-center space-x-12 items-center">
-            <BookNowButton />
+            <Button description="Book Now!!" />
           </div>
           {/* Button */}
 
@@ -112,7 +107,7 @@ const Navbar = () => {
             </ul>
 
             <div className="justify-center space-x-12 items-center">
-              <BookNowButton />
+              <Button description="Book Now!!" />
             </div>
           </div>
         )}
