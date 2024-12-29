@@ -3,7 +3,7 @@ import coverImage from "../assets/images/coverImage.png";
 const Contact = () => {
   return (
     <div className=" bg-white  ">
-      <div className=" h-[70vh]  bg-center">
+      <div className=" h-[50vh]  bg-center">
         <img
           src={coverImage}
           alt="Background Image"
@@ -11,7 +11,7 @@ const Contact = () => {
         />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-12 py-10  bg-white relative -mt-48">
+      <div className="max-w-5xl mx-auto text-lg px-6 md:px-12 py-10  bg-white relative -mt-48">
         <div className="space-y-12">
           <section>
             <h1 className="font-dancingScript font-extrabold text-3xl text-center underline underline-offset-8">
