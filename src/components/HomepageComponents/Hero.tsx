@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
         />
       </motion.div>
       <div className="relative h-full grid grid-cols-2">
-        <div className="flex flex-col justify-center pl-8 md:pl-16 lg:pl-24">
+        <div className="flex flex-col justify-center pl-8 md:pl-16 lg:pl-24 absolute">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
