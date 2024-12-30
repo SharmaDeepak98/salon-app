@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { NavItem, navItems } from "../constants/index";
 import logo from "../assets/images/Logo.png";
 import Button from "./Button";
-
-
 
 const Navbar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -14,106 +12,101 @@ const Navbar = () => {
     setDrawerIsOpen(!drawerIsOpen);
   };
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
-
-    if (currentScrollY > lastScrollY) {
-      // Scrolling down
+    if (Math.abs(currentScrollY - lastScrollY) < 100) return;
+    
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
       setIsVisible(false);
     } else {
-      // Scrolling up
       setIsVisible(true);
     }
-
     setLastScrollY(currentScrollY);
-  };
+  }, [lastScrollY]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    let timeoutId: number | null = null;
+    
+    const throttledScroll = () => {
+      if (timeoutId) return;
+      
+      timeoutId = window.setTimeout(() => {
+        handleScroll();
+        timeoutId = null;
+      }, 100);
     };
-  }, [lastScrollY]);
+
+    window.addEventListener("scroll", throttledScroll);
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, [handleScroll]);
 
   return (
     <nav
-      className={`sticky top-0 z-50 backdrop-blur-lg border-b bg-cream border-neutral-700/80 transition-opacity duration-300 ${
-        isVisible ? "opacity-100 visible" : "opacity-0 invisible"
+      className={`sticky top-0 z-50 backdrop-blur-lg border-b bg-cream border-neutral-700/80 transform transition-transform duration-500 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       <div className="container px-4 py-4 mx-auto relative text-lg">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center flex-shrink-0">
-            <a href="/">
-              <img src={logo} alt="logo" />
-            </a>
-          </div>
-          {/* Logo */}
-
-          {/* Nav */}
-          <ul className="hidden lg:flex ml-14 space-x-12">
+        <div className="flex items-center justify-between w-full">
+          {/* Logo at start */}
+          <img src={logo} alt="logo" className="h-12" />
+          
+          {/* Nav links in center */}
+          <ul className="hidden lg:flex space-x-12">
             {navItems.map((item: NavItem, index) => (
               <li key={index}>
                 <a
                   href={item.path}
-                  className="text-gray-500 font-bold hover:text-gray-800"
+                  className="text-gray-500 font-bold hover:text-gray-800 transition-colors duration-300"
                 >
                   {item.label}
                 </a>
               </li>
             ))}
           </ul>
-          {/* Nav */}
-
-          {/* Button */}
-          <div className="hidden lg:flex justify-center space-x-12 items-center">
-            <Button description="Book Now!!" />
+          
+          {/* Button at end for desktop */}
+          <div className="hidden lg:block">
+            <Button description="Book Now" />
           </div>
-          {/* Button */}
-
-          {/* Menu */}
-          <div className="lg:hidden md:flex flex-col justify-end py-2 space-x-12">
-            <button onClick={toggleMobileView} className="text-white">
-              {drawerIsOpen ? (
-                <div className="hover:text-gray-900 text-2xl mt-4 flex space-x-8 text-gray-600">
-                  <i className="fa fa-times" />
-                </div>
-              ) : (
-                <div className="hover:text-gray-900 text-2xl mt-4 flex space-x-8 text-gray-600">
-                  <i className="fa fa-bars" />
-                </div>
-              )}
-            </button>
-          </div>
-          {/* Menu */}
-        </div>
-
-        {/* Drawer */}
-        {drawerIsOpen && (
-          <div className="fixed z-20 right-0 bg-neutral-800 w-full p-12 flex flex-col items-center justify-center lg:hidden">
-            <ul>
-              {navItems.map((item: NavItem, index) => (
-                <li key={index} className="py-2">
-                  <a
-                    href={item.path}
-                    className="text-gray-500 font-bold hover:text-gray-200"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <div className="justify-center space-x-12 items-center">
-              <Button description="Book Now!!" />
+          
+          {/* Mobile menu button */}
+          <button 
+            onClick={toggleMobileView } 
+            className="lg:hidden text-gray-600 hover:text-gray-900"
+          >
+            <div className="text-2xl">
+              <i className={`fa fa-${drawerIsOpen ? 'times' : 'bars'}`} />
             </div>
-          </div>
-        )}
-        {/* Drawer */}
-      </div>
-    </nav>
+          </button>
+        </div>
+        
+        {/* Mobile drawer */}
+        <div 
+          className={`fixed z-20 top-[73px] left-0 right-0 bg-neutral-800 w-full p-12 flex flex-col items-center justify-center lg:hidden transform transition-transform duration-300 ease-in-out ${
+            drawerIsOpen ? "translate-y-0" : "-translate-y-full"
+          }`}
+        >
+          <ul className="space-y-4 mb-8">
+            {navItems.map((item: NavItem, index) => (
+              <li key={index} className="text-center">
+                <a
+                  href={item.path}
+                  className="text-gray-500 font-bold hover:text-gray-200 transition-colors duration-300"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <Button description="Book now" />
+ 
+        </ div>
+      </ div>
+    </ nav>
   );
 };
 

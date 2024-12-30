@@ -9,6 +9,6 @@
 
 @layer base {
   body {
-    font-family: 'Roboto Condensed', sans-serif;
+  @apply bg-[#e0dfdb] font-['robotoCondensed'] text-gray-800 text-lg;
   }
 }
