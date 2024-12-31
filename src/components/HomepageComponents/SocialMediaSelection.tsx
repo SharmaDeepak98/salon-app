@@ -16,7 +16,7 @@ const SocialMediaSection: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-6xl font-instrumentSerif pt-10 font-bold"
         >
-          Follow Honey Hair Salon
+          Follow Advanced Hair Salon
         </motion.h1>
         <motion.div
           initial={{ opacity: 0 }}

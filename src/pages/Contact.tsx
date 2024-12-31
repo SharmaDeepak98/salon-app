@@ -3,79 +3,87 @@ import coverImage from "../assets/images/coverImage.png";
 
 const Contact = () => {
   return (
-    <div className="bg-white">
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="h-[50vh] bg-center"
-      >
+    <div className="">
+      <div className="h-[50vh] bg-center">
         <img
           src={coverImage}
           alt="Background Image"
           className="h-full w-full object-cover"
         />
-      </motion.div>
+      </div>
 
-      <motion.div 
+      <motion.div
         initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-5xl mx-auto text-lg px-4 sm:px-6 md:px-12 py-8 sm:py-10 bg-white relative -mt-48"
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true, amount: 0 }}
+        transition={{ duration: 1 }}
+        className="max-w-5xl mx-auto text-lg px-4 sm:px-6 md:px-12 py-8 sm:py-10 bg-[#e0dfdb]  relative -mt-48"
       >
-        <div className="space-y-8 sm:space-y-12">
+        <div className="space-y-12">
           <motion.section
             initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 1 }}
+            transition={{ duration: 1 }}
           >
-            <h1 className="font-dancingScript font-extrabold text-2xl sm:text-3xl text-center underline underline-offset-8">
+            <h1 className="font-dancingScript font-extrabold text-4xl sm:text-5xl text-center underline underline-offset-8">
               ADVANCED HAIR SALON
             </h1>
-            <p className="text-gray-600 font-robotoCondensed text-center mt-4 text-sm sm:text-base">
-              If you have any questions before booking or inquiries unrelated to booking, 
-              feel free to send us a text—we'll get back to you as soon as we can!
+            <p className="text-gray-600 font-robotoCondensed text-center mt-4 text-lg sm:text-xl">
+              If you have any questions before booking or inquiries unrelated to
+              booking, feel free to send us a text—we'll get back to you as soon
+              as we can!
             </p>
           </motion.section>
 
-          <motion.section 
+          <motion.section
             initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1 }}
             className="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4"
           >
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="text-center"
-            >
-              <strong className="text-base sm:text-lg">Phone</strong>
-              <p className="text-gray-600 font-robotoCondensed">9876543210</p>
+            <motion.div whileHover={{ scale: 1.05 }} className="text-center">
+              <strong className="text-lg sm:text-xl">Phone</strong>
+              <p className="text-gray-600 font-robotoCondensed text-lg sm:text-xl">
+                9876543210
+              </p>
             </motion.div>
 
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="text-center"
-            >
-              <strong className="text-base sm:text-lg">Email</strong>
-              <p className="text-gray-600 font-robotoCondensed">emailtosomewhere@gmail.com</p>
+            <motion.div whileHover={{ scale: 1.05 }} className="text-center">
+              <strong className="text-lg sm:text-xl">Email</strong>
+              <p className="text-gray-600 font-robotoCondensed text-lg sm:text-xl">
+                emailtosomewhere@gmail.com
+              </p>
             </motion.div>
           </motion.section>
 
-          <motion.section 
+          <motion.section
             initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1 }}
             className="flex justify-center text-center"
           >
             <div>
-              <strong className="text-base sm:text-lg">Social Media</strong>
+              <strong className="text-lg sm:text-xl">Social Media</strong>
               <div className="mt-4 flex space-x-4 text-black text-center">
-                {['tiktok', 'facebook', 'instagram'].map((platform) => (
+                {["tiktok", "facebook", "instagram"].map((platform, index) => (
                   <motion.a
                     key={platform}
                     href={`http://${platform}.com`}
-                    whileHover={{ scale: 1.2, color: '#666' }}
-                    className="text-xl sm:text-2xl"
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    custom={index}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      transition: { delay: 0.4 + index * 0.1 },
+                    }}
+                    className="text-2xl sm:text-3xl"
                   >
                     <i className={`fab fa-${platform}`}></i>
                   </motion.a>
@@ -84,35 +92,47 @@ const Contact = () => {
             </div>
           </motion.section>
 
-          <hr className="border-t border-black my-6 w-full" />
+          <div className="mt-6 sm:mt-8">
+            <motion.hr
+              initial={{ width: 0 }}
+              animate={{ width: "10rem" }}
+              transition={{ delay: 0.6, duration: 1 }}
+              className="border-gray-400 border-t-2 mx-auto"
+            />
+          </div>
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 1 }}
           className="mt-8 sm:mt-12"
         >
           <div className="mb-8 sm:mb-12">
-            <h1 className="font-instrumentSerif font-extrabold text-2xl sm:text-3xl mb-6 sm:mb-8">
+            <h1 className="font-instrumentSerif font-extrabold text-4xl sm:text-5xl mb-6 sm:mb-8">
               Visit Us
             </h1>
-            <div className="font-robotoCondensed text-sm sm:text-base space-y-2 text-gray-600">
-              <p>We are very delighted to setup our business in this beautiful Kathmandu city.</p>
+            <div className="font-robotoCondensed text-lg sm:text-xl space-y-4 text-gray-600">
+              <p>
+                We are very delighted to setup our business in this beautiful
+                Kathmandu city.
+              </p>
               <p>Our team is looking forward to serve you well!!</p>
             </div>
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.7 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 1 }}
             className="mb-8 sm:mb-12"
           >
-            <div className="mt-4 text-sm sm:text-base space-y-2">
-              <p className="font-bold text-lg sm:text-xl">Address</p>
+            <div className="text-lg sm:text-xl space-y-4">
+              <p className="font-bold">Address</p>
               <div className="space-y-2 text-gray-600">
-                <p>Pashupati street</p>
+                <p>Pashupati Street</p>
                 <p>Kathmandu, Nepal</p>
               </div>
             </div>
@@ -131,10 +151,11 @@ const Contact = () => {
               </div>
             </div>
 
-            <motion.div 
+            <motion.div
               initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 1 }}
               className="mt-12 sm:mt-16 space-y-4"
             >
               <h1 className="font-bold text-lg sm:text-xl">Location</h1>

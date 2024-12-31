@@ -15,7 +15,7 @@ const Navbar = () => {
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
     if (Math.abs(currentScrollY - lastScrollY) < 100) return;
-    
+
     if (currentScrollY > lastScrollY && currentScrollY > 100) {
       setIsVisible(false);
     } else {
@@ -26,10 +26,10 @@ const Navbar = () => {
 
   useEffect(() => {
     let timeoutId: number | null = null;
-    
+
     const throttledScroll = () => {
       if (timeoutId) return;
-      
+
       timeoutId = window.setTimeout(() => {
         handleScroll();
         timeoutId = null;
@@ -45,68 +45,72 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 backdrop-blur-lg border-b bg-cream border-neutral-700/80 transform transition-transform duration-500 ease-in-out ${
+      className={`fixed w-full top-0 z-50 backdrop-blur-lg border-b bg-cream border-neutral-700/80 transform transition-transform duration-500 ease-in-out ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="container px-4 py-4 mx-auto relative text-lg">
-        <div className="flex items-center justify-between w-full">
-          {/* Logo at start */}
-          <img src={logo} alt="logo" className="h-12" />
-          
-          {/* Nav links in center */}
-          <ul className="hidden lg:flex space-x-12">
+      <div className="max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto relative">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <img src={logo} alt="logo" className="h-8 sm:h-10 md:h-12 w-auto" />
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map((item: NavItem, index) => (
-              <li key={index}>
-                <a
-                  href={item.path}
-                  className="text-gray-500 font-bold hover:text-gray-800 transition-colors duration-300"
-                >
-                  {item.label}
-                </a>
-              </li>
+              <a
+                key={index}
+                href={item.path}
+                className="text-gray-500 hover:text-gray-800 px-3 py-2 text-lg font-medium transition-colors duration-300"
+              >
+                {item.label}
+              </a>
             ))}
-          </ul>
-          
-          {/* Button at end for desktop */}
-          <div className="hidden lg:block">
+            <div className="ml-4">
+              <Button description="Book Now" />
+            </div>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="flex md:hidden">
+            <button
+              onClick={toggleMobileView}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-neutral-300"
+              aria-expanded={drawerIsOpen}
+            >
+              <span className="sr-only">Open main menu</span>
+              <i
+                className={`fa fa-${drawerIsOpen ? "times" : "bars"} text-xl`}
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden transition-all duration-300 ease-in-out ${
+          drawerIsOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        } overflow-hidden bg-gray-700`}
+      >
+        <div className="px-4 pt-2 pb-3 space-y-1 sm:px-6">
+          {navItems.map((item: NavItem, index) => (
+            <a
+              key={index}
+              href={item.path}
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-100 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-300"
+            >
+              {item.label}
+            </a>
+          ))}
+          <div className="pt-10 px-3 ">
             <Button description="Book Now" />
           </div>
-          
-          {/* Mobile menu button */}
-          <button 
-            onClick={toggleMobileView } 
-            className="lg:hidden text-gray-600 hover:text-gray-900"
-          >
-            <div className="text-2xl">
-              <i className={`fa fa-${drawerIsOpen ? 'times' : 'bars'}`} />
-            </div>
-          </button>
         </div>
-        
-        {/* Mobile drawer */}
-        <div 
-          className={`fixed z-20 top-[73px] left-0 right-0 bg-neutral-800 w-full p-12 flex flex-col items-center justify-center lg:hidden transform transition-transform duration-300 ease-in-out ${
-            drawerIsOpen ? "translate-y-0" : "-translate-y-full"
-          }`}
-        >
-          <ul className="space-y-4 mb-8">
-            {navItems.map((item: NavItem, index) => (
-              <li key={index} className="text-center">
-                <a
-                  href={item.path}
-                  className="text-gray-500 font-bold hover:text-gray-200 transition-colors duration-300"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <Button description="Book now" />
- 
-        </ div>
-      </ div>
-    </ nav>
+      </div>
+    </nav>
   );
 };
 
