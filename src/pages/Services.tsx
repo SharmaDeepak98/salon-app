@@ -1,10 +1,29 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import coverImage from "../assets/images/coverImage.png";
 import ServicesDetail from "../components/ServicesDetail";
 import share from "../assets/images/hair.jpg";
 import Button from "../components/Button";
+import Modal from "../components/Modal";
+import servicesData from "../constants/ServicesList";
 
 const Services = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<{
+    name: string;
+    modalContent: {
+      detailedInfo: string;
+      process: string[];
+      aftercare: string[];
+      recommendations: string;
+    };
+  } | null>(null);
+
+  const handleServiceClick = (service: { name: string; modalContent: { detailedInfo: string; process: string[]; aftercare: string[]; recommendations: string; } }) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="">
       <div className="h-[50vh] bg-center">
@@ -23,7 +42,6 @@ const Services = () => {
         className="max-w-5xl mx-auto text-lg px-4 sm:px-6 md:px-12 py-8 sm:py-10 bg-[#e0dfdb] relative -mt-48"
       >
         {/* Title Section */}
-
         <div className="space-y-12">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -44,52 +62,32 @@ const Services = () => {
             <motion.hr
               initial={{ width: 0 }}
               animate={{ width: "10rem" }}
-              transition={{ delay: 0.6, duration: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
               className="border-gray-400 border-t-2 mx-auto"
             />
           </div>
         </div>
+
         {/* Services Section */}
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, amount: 0.5 }} // Adjusted viewport amount
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 1 }}
           className="mt-12 space-y-10"
         >
-          <ServicesDetail
-            serviceName="Eyebrow Threading"
-            description="This service shapes your brows with precision, leaving you with a clean, polished look."
-            price="15"
-          />
-
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, amount: 0.5 }} // Adjusted viewport amount
-            transition={{ duration: 1 }}
-            className="mt-12 space-y-10"
-          >
-            <ServicesDetail
-              serviceName="Eyebrow Tinting"
-              description="We provide a high-quality tinting service that will give your brows a fuller, more defined look."
-              price="30"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, amount: 0.8 }}
-            transition={{ duration: 1 }}
-            className="mt-12 space-y-10"
-          >
-            <ServicesDetail
-              serviceName="Hair Styling"
-              description="Enjoy our expert hairstyling services that leave you with a look that complements your style and personality."
-              price="50"
-            />
-          </motion.div>
+          {servicesData.map((service, index) => (
+        <ServicesDetail
+          key={index}
+          serviceName={service.serviceName}
+          initialContent={service.initialContent}
+          modalContent={service.modalContent}
+          onClick={() => handleServiceClick({
+            name: service.serviceName,
+            modalContent: service.modalContent
+          })}
+        />
+      ))}
 
           {/* Share Your Style Section */}
           <motion.div
@@ -100,7 +98,6 @@ const Services = () => {
             className="mt-12"
           >
             <div className="flex flex-col md:flex-row items-center gap-8">
-              {/* Image */}
               <div className="w-full md:w-1/2">
                 <motion.img
                   whileHover={{ scale: 1.05 }}
@@ -110,7 +107,6 @@ const Services = () => {
                 />
               </div>
 
-              {/* Text and Button */}
               <div className="w-full md:w-1/2 text-center md:text-left">
                 <h2 className="text-3xl sm:text-4xl font-bold font-instrumentSerif text-gray-900">
                   Share Your Style
@@ -122,10 +118,7 @@ const Services = () => {
                   on our official pages!
                 </p>
                 <div className="mt-6 sm:mt-8">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="inline-block"
-                  >
+                  <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
                     <Button description="Follow Us" />
                   </motion.div>
                 </div>
@@ -134,6 +127,12 @@ const Services = () => {
           </motion.div>
         </motion.div>
       </motion.div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        service={selectedService}
+      />
     </div>
   );
 };
