@@ -96,7 +96,7 @@ const Contact = () => {
             <motion.hr
               initial={{ width: 0 }}
               animate={{ width: "10rem" }}
-              transition={{ delay: 0.6, duration: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
               className="border-gray-400 border-t-2 mx-auto"
             />
           </div>
