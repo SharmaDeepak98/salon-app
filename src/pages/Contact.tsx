@@ -46,14 +46,14 @@ const Contact = () => {
             <motion.div whileHover={{ scale: 1.05 }} className="text-center">
               <strong className="text-lg sm:text-xl">Phone</strong>
               <p className="text-gray-600 font-robotoCondensed text-lg sm:text-xl">
-                9876543210
+                613-749-2074
               </p>
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.05 }} className="text-center">
               <strong className="text-lg sm:text-xl">Email</strong>
               <p className="text-gray-600 font-robotoCondensed text-lg sm:text-xl">
-                emailtosomewhere@gmail.com
+
               </p>
             </motion.div>
           </motion.section>
@@ -116,7 +116,7 @@ const Contact = () => {
             <div className="font-robotoCondensed text-lg sm:text-xl space-y-4 text-gray-600">
               <p>
                 We are very delighted to setup our business in this beautiful
-                Kathmandu city.
+                Windsor city.
               </p>
               <p>Our team is looking forward to serve you well!!</p>
             </div>
@@ -132,8 +132,9 @@ const Contact = () => {
             <div className="text-lg sm:text-xl space-y-4">
               <p className="font-bold">Address</p>
               <div className="space-y-2 text-gray-600">
-                <p>Pashupati Street</p>
-                <p>Kathmandu, Nepal</p>
+                <p>2298 Tecumseh Rd E</p>
+                <p>Windsor, ON NW81E7</p>
+                <p>Canada</p>
               </div>
             </div>
 
@@ -141,8 +142,8 @@ const Contact = () => {
               <p className="font-bold mb-4 text-lg sm:text-xl">Opening Hours</p>
               <div className="text-gray-600 flex space-x-8 sm:space-x-12">
                 <section className="flex flex-col space-y-4 text-gray-800">
-                  <span>Sun - Fri</span>
-                  <span>Saturday</span>
+                  <span>Mon - Fri</span>
+                  <span>Sunday</span>
                 </section>
                 <section className="flex flex-col space-y-4">
                   <span>8am - 5pm</span>
@@ -161,7 +162,7 @@ const Contact = () => {
               <h1 className="font-bold text-lg sm:text-xl">Location</h1>
               <div className="w-full h-72 sm:h-96 md:h-[450px] p-2 sm:p-4">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3459.027819900312!2d-90.0301532!3d29.892298999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8620a72587516891%3A0xb2f44aba69783c5b!2sAdvanced%20Salon%20%26%20Spa!5e0!3m2!1sen!2snp!4v1735283564391!5m2!1sen!2snp"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2950.8440636134755!2d-82.9493637!3d42.3172872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x883b2d1f3d6844d5%3A0x91d5f89f42911f56!2s2298%20Tecumseh%20Rd%20E%2C%20Windsor%2C%20ON%20N8W%201E7%2C%20Canada!5e0!3m2!1sen!2sus!4v1735283564391!5m2!1sen!2sus"
                   className="w-full h-full border-1 border-solid border-gray-700 shadow-md"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
