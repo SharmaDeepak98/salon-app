@@ -7,6 +7,20 @@ const Navbar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [currentPath, setCurrentPath] = useState("");
+
+  useEffect(() => {
+    // Get the current path when component mounts
+    setCurrentPath(window.location.pathname);
+    
+    // Update path when it changes
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
 
   const toggleMobileView = () => {
     setDrawerIsOpen(!drawerIsOpen);
@@ -15,7 +29,6 @@ const Navbar = () => {
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
     if (Math.abs(currentScrollY - lastScrollY) < 100) return;
-
     if (currentScrollY > lastScrollY && currentScrollY > 100) {
       setIsVisible(false);
     } else {
@@ -26,22 +39,27 @@ const Navbar = () => {
 
   useEffect(() => {
     let timeoutId: number | null = null;
-
     const throttledScroll = () => {
       if (timeoutId) return;
-
       timeoutId = window.setTimeout(() => {
         handleScroll();
         timeoutId = null;
       }, 100);
     };
-
     window.addEventListener("scroll", throttledScroll);
     return () => {
       window.removeEventListener("scroll", throttledScroll);
       if (timeoutId) window.clearTimeout(timeoutId);
     };
   }, [handleScroll]);
+
+  const isActivePath = (path: string) => {
+    // Handle root path special case
+    if (path === "/" && currentPath === "/") return true;
+    // For other paths, check if current path starts with the nav item path
+    // This handles both exact matches and sub-routes
+    return path !== "/" && currentPath.startsWith(path);
+  };
 
   return (
     <nav
@@ -55,14 +73,17 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <img src={logo} alt="logo" className="h-8 sm:h-10 md:h-12 w-auto" />
           </div>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map((item: NavItem, index) => (
               <a
                 key={index}
                 href={item.path}
-                className="text-gray-500 hover:text-gray-800 px-3 py-2 text-lg font-medium transition-colors duration-300"
+                className={`px-3 py-2 text-lg transition-colors duration-300 ${
+                  isActivePath(item.path)
+                    ? "text-gray-800 font-bold" // Added font-bold for active state
+                    : "text-gray-500 hover:text-gray-800 font-bold"
+                }`}
               >
                 {item.label}
               </a>
@@ -71,7 +92,6 @@ const Navbar = () => {
               <Button description="Book Now" />
             </div>
           </div>
-
           {/* Mobile menu button */}
           <div className="flex md:hidden">
             <button
@@ -88,7 +108,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
       {/* Mobile menu */}
       <div
         className={`md:hidden transition-all duration-300 ease-in-out ${
@@ -100,12 +119,16 @@ const Navbar = () => {
             <a
               key={index}
               href={item.path}
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-100 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-300"
+              className={`block px-3 py-2 rounded-md text-base transition-colors duration-300 ${
+                isActivePath(item.path)
+                  ? "text-gray-900 bg-gray-50 font-bold" // Added font-bold for active state
+                  : "text-gray-100 hover:text-gray-900 hover:bg-gray-50 font-medium"
+              }`}
             >
               {item.label}
             </a>
           ))}
-          <div className="pt-10 px-3 ">
+          <div className="pt-10 px-3">
             <Button description="Book Now" />
           </div>
         </div>
