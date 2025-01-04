@@ -50,7 +50,7 @@ const Services = () => {
             transition={{ duration: 1 }}
             className="text-center"
           >
-            <h1 className="text-4xl sm:text-5xl font-extrabold underline underline-offset-8 font-dancingScript text-gray-900">
+            <h1 className="text-4xl sm:text-5xl font-extrabold underline underline-offset-8 font-instrumentSerif text-gray-900">
               SERVICES
             </h1>
             <p className="text-lg sm:text-xl font-medium font-robotoCondensed text-gray-700 mt-4 sm:mt-6">

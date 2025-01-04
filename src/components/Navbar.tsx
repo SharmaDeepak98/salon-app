@@ -3,26 +3,15 @@ import { NavItem, navItems } from "../constants/index";
 import logo from "../assets/images/Logo.png";
 import Button from "./Button";
 import BookModal from "./BookModal";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 
 const Navbar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [currentPath, setCurrentPath] = useState("");
   const [isBookModalOpen, setIsBookModalOpen] = useState(false);
 
-  useEffect(() => {
-    // Get the current path when component mounts
-    setCurrentPath(window.location.pathname);
-
-    // Update path when it changes
-    const handleLocationChange = () => {
-      setCurrentPath(window.location.pathname);
-    };
-
-    window.addEventListener("popstate", handleLocationChange);
-    return () => window.removeEventListener("popstate", handleLocationChange);
-  }, []);
+  const location = useLocation(); // Get current location
 
   const toggleMobileView = () => {
     setDrawerIsOpen(!drawerIsOpen);
@@ -56,11 +45,8 @@ const Navbar = () => {
   }, [handleScroll]);
 
   const isActivePath = (path: string) => {
-    // Handle root path special case
-    if (path === "/" && currentPath === "/") return true;
-    // For other paths, check if current path starts with the nav item path
-    // This handles both exact matches and sub-routes
-    return path !== "/" && currentPath.startsWith(path);
+    // Check if the current location pathname matches the nav item path
+    return location.pathname === path;
   };
 
   return (
@@ -74,34 +60,34 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <img
-                src={logo}
-                alt="logo"
-                className="h-8 sm:h-10 md:h-12 w-auto"
-              />
+              <Link to="/">
+                <img
+                  src={logo}
+                  alt="logo"
+                  className="h-8 sm:h-10 md:h-12 w-auto cursor-pointer"
+                />
+              </Link>
             </div>
             {/* Desktop Navigation */}
             <div className="hidden md:flex md:items-center md:space-x-8">
               {navItems.map((item: NavItem, index) => (
-                <a
+                <Link
                   key={index}
-                  href={item.path}
+                  to={item.path}
                   className={`px-3 py-2 text-lg transition-colors duration-300 ${
                     isActivePath(item.path)
-                      ? "text-gray-800 font-bold" // Added font-bold for active state
+                      ? "text-gray-800 font-bold" // Active path styles
                       : "text-gray-500 hover:text-gray-800 font-bold"
                   }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
               <div className="ml-4">
-                {/* <Button description="Book Now"  /> */}
                 <button
                   onClick={() => setIsBookModalOpen(true)}
-                  className="tracking-wider hover:text-black hover:bg-gray-300  bg-black font-bold  py-2 px-8 rounded-md text-white shadow-md"
+                  className="tracking-wider hover:text-black hover:bg-gray-300 bg-black font-bold py-2 px-8 rounded-md text-white shadow-md"
                 >
-                  {" "}
                   Book Now
                 </button>
               </div>
@@ -130,17 +116,17 @@ const Navbar = () => {
         >
           <div className="px-4 pt-2 pb-3 space-y-1 sm:px-6">
             {navItems.map((item: NavItem, index) => (
-              <a
+              <Link
                 key={index}
-                href={item.path}
+                to={item.path}
                 className={`block px-3 py-2 rounded-md text-base transition-colors duration-300 ${
                   isActivePath(item.path)
-                    ? "text-gray-900 bg-gray-50 font-bold" // Added font-bold for active state
+                    ? "text-gray-900 bg-gray-50 font-bold" // Active path styles
                     : "text-gray-100 hover:text-gray-900 hover:bg-gray-50 font-medium"
                 }`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
             <div className="pt-10 px-3">
               <Button description="Book Now" />
