@@ -119,7 +119,7 @@ const Services = () => {
                 </p>
                 <div className="mt-6 sm:mt-8">
                   <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
-                    <Button description="Follow Us" />
+                    <Button description="Follow Us" to="/contact"/>
                   </motion.div>
                 </div>
               </div>
