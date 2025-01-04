@@ -17,6 +17,8 @@ const ServiceIcon: React.FC<ServiceIconProps> = ({ icon, name, index }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50% 0px -50% 0px" });
 
+  
+
   return (
     <motion.div
       ref={ref}
@@ -29,7 +31,7 @@ const ServiceIcon: React.FC<ServiceIconProps> = ({ icon, name, index }) => {
       }}
       className="flex flex-col items-center"
     >
-      <div className="mb-4 text-6xl text-gray-700">
+      <div className="mb-4 text-6xl text-black">
         <i className={icon}></i>
       </div>
       <h3 className="text-xl font-semibold text-gray-800">{name}</h3>
@@ -69,7 +71,7 @@ const ServiceSection: React.FC = () => {
 
         {/* View Prices Button */}
         <div className="mt-16 text-center">
-          <Button description="View Prices" />
+          <Button description="View Services" to="/services" />
         </div>
       </div>
     </section>

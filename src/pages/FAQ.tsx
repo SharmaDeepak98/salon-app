@@ -31,7 +31,7 @@ const FAQ = () => {
         </div>
         <div className="mt-16 sm:mt-24 text-center">
           <p className="text-lg sm:text-xl font-bold mb-4">Have any further queries?</p>
-          <a href="#"><Button description="CONTACT US" /></a>
+          <a href="#"><Button description="CONTACT US" to="/contact" /></a>
         </div>
       </div>
     </div>
