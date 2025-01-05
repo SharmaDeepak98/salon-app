@@ -6,6 +6,7 @@ interface ModalProps {
   onClose: () => void;
   service: {
     name: string;
+    image: string; 
     modalContent: {
       detailedInfo: string;
       process: string[];
@@ -17,11 +18,10 @@ interface ModalProps {
 
 const Modal = ({ isOpen, onClose, service }: ModalProps) => {
   if (!service) return null;
-
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center ">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -37,13 +37,21 @@ const Modal = ({ isOpen, onClose, service }: ModalProps) => {
           >
             <h2 className="text-2xl font-bold mb-6">{service.name}</h2>
             
+            {/* Service Image */}
+            <div className="mb-6">
+              <img
+                src={service.image}
+                alt={`${service.name} service`}
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            </div>
+
             {/* Detailed Information */}
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-semibold mb-2">About the Service</h3>
                 <p className="text-gray-700">{service.modalContent.detailedInfo}</p>
               </div>
-
               {/* Process Steps */}
               <div>
                 <h3 className="text-xl font-semibold mb-2">Our Process</h3>
@@ -53,7 +61,6 @@ const Modal = ({ isOpen, onClose, service }: ModalProps) => {
                   ))}
                 </ol>
               </div>
-
               {/* Aftercare Instructions */}
               <div>
                 <h3 className="text-xl font-semibold mb-2">Aftercare</h3>
@@ -63,14 +70,12 @@ const Modal = ({ isOpen, onClose, service }: ModalProps) => {
                   ))}
                 </ul>
               </div>
-
               {/* Recommendations */}
               <div>
                 <h3 className="text-xl font-semibold mb-2">Recommendations</h3>
                 <p className="text-gray-700">{service.modalContent.recommendations}</p>
               </div>
             </div>
-
             <div className="flex justify-end mt-8">
               <Button description="Close" onClick={onClose} />
             </div>

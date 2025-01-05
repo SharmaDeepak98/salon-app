@@ -26,7 +26,7 @@ const Contact = () => {
             viewport={{ once: true, amount: 1 }}
             transition={{ duration: 1 }}
           >
-            <h1 className="font-instrumentSerif font-extrabold text-4xl sm:text-5xl text-center underline underline-offset-8">
+            <h1 className="font-instrumentSerif font-extrabold text-4xl sm:text-5xl text-center ">
               ADVANCED HAIR SALON
             </h1>
             <p className="text-gray-600 font-robotoCondensed text-center mt-4 text-lg sm:text-xl">

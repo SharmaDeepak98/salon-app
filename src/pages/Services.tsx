@@ -11,6 +11,7 @@ const Services = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<{
     name: string;
+    image: string;
     modalContent: {
       detailedInfo: string;
       process: string[];
@@ -19,7 +20,7 @@ const Services = () => {
     };
   } | null>(null);
 
-  const handleServiceClick = (service: { name: string; modalContent: { detailedInfo: string; process: string[]; aftercare: string[]; recommendations: string; } }) => {
+  const handleServiceClick = (service: { name: string; image: string; modalContent: { detailedInfo: string; process: string[]; aftercare: string[]; recommendations: string; } }) => {
     setSelectedService(service);
     setIsModalOpen(true);
   };
@@ -50,7 +51,7 @@ const Services = () => {
             transition={{ duration: 1 }}
             className="text-center"
           >
-            <h1 className="text-4xl sm:text-5xl font-extrabold underline underline-offset-8 font-instrumentSerif text-gray-900">
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-instrumentSerif text-gray-900">
               SERVICES
             </h1>
             <p className="text-lg sm:text-xl font-medium font-robotoCondensed text-gray-700 mt-4 sm:mt-6">
@@ -84,6 +85,7 @@ const Services = () => {
           modalContent={service.modalContent}
           onClick={() => handleServiceClick({
             name: service.serviceName,
+            image: service.image,
             modalContent: service.modalContent
           })}
         />
