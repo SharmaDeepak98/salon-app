@@ -23,3 +23,26 @@ export const testimonials = [
   { name: "David P.", text: "Great atmosphere, friendly staff, and exceptional service. My go-to salon from now on.", rating: 5 },
   { name: "Rachel S.", text: "The color specialists here are truly artists. They helped me achieve exactly the look I wanted.", rating: 5 }
 ];
+
+export const FAQItems = [
+  {
+    question: "Do I need to book an appointment, or do you accept walk-ins?",
+    answer:
+      "While we welcome walk-ins, we recommend booking an appointment to ensure availability, especially during busy hours.",
+  },
+  {
+    question: "What forms of payment do you accept?",
+    answer:
+      "We accept cash, credit/debit cards, and digital payment options like Apple Pay and Google Pay.",
+  },
+  {
+    question: "Can you accommodate sensitive skin or allergies?",
+    answer:
+      "Of course! Please inform us of any sensitivities or allergies, and we will tailor our services and products to meet your needs.",
+  },
+  {
+    question: "What brands of products do you use?",
+    answer:
+      "We use high-quality, salon-grade products from top brands like Olaplex, Redken, L'Oréal Professional, and more.",
+  },
+];
